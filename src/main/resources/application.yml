@@ -1,0 +1,59 @@
+# riot api
+riot:
+  api-key: ${RIOT_API_KEY}
+
+# mongodb
+mongodb:
+  matchup_statistics_db:
+    connectionString: mongodb://${MATCHUP_STATISTIC_DB}:3311/matchup_statistics_db
+
+# 스프링
+spring:
+
+  # jpa
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+        dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+
+  config:
+    import:
+      - optional:file:.env[.properties]
+      - optional:file:/config/application.properties
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  profiles:
+    include: swagger
+
+# 로그
+logging:
+  level:
+    root: info
+
+# IP 주소
+ip:
+  db-repl:
+    user: ${MATCHUP_USER_DB_REPL}
+  server:
+    user: ${USER_SERVER}
+    auth: ${AUTH_SERVER}
+    web: ${WEB_SERVER}
+    statistics: ${STATISTICS_SERVER}
+
+id:
+  db-repl: ${DB_REPL_ID}
+
+password:
+  db: ${DB_PASSWORD}
+
+
+dialect: org.hibernate.dialect.MySQLDialect
+format_sql: true
+ddl-auto: create-drop
+physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+default_batch_fetch_size: 1000
