@@ -1,6 +1,6 @@
 # matchup
 
-SSAFY 2차 프로젝트(2024.12.31. 삭제예정)
+SSAFY 2차 프로젝트
 
 # Statistics Server Branch
 
