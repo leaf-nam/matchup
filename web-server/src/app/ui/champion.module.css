@@ -1,0 +1,26 @@
+.champ {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 20px;
+    cursor: pointer;
+    place-items: center;
+}
+
+.champ img {
+    max-width: 100%;
+    min-height: 100%;
+    border-radius: 10px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.champ img {
+    opacity: 0.75;
+}
+
+.champ img:hover {
+    opacity: 1;
+}
+
+.champ a {
+    text-align: center;
+}

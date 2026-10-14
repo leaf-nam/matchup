@@ -1,0 +1,203 @@
+server:
+  port: 9000
+
+spring:
+  servlet:
+    multipart:
+      file-size-threshold: 1MB
+      location: C:/Temp
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  config:
+    import:
+      - optional:file:.env[.properties]
+      - optional:file:/config/application.properties
+  data:
+    redis:
+      host: ${MATCHUP_TOKEN_REDIS}
+      port: 3312
+      password: ${DB_PASSWORD}
+
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://${WEB_SERVER}:3000"
+              - "http://localhost:3000"
+            allow-credentials: true
+            allowed-headers:
+              - x-requested-with
+              - authorization
+              - content-type
+              - credential
+              - X-AUTH-TOKEN
+              - X-CSRF-TOKEN
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+
+      ####################  User Server ####################
+      routes:
+        - id: user-server-oauth2-login
+          uri: http://${USER_SERVER}:9002
+          predicates:
+            - Path=/api/oauth2/**
+          filters:
+            - LogFilter
+
+        - id: user-server-regist
+          uri: http://${USER_SERVER}:9002
+          predicates:
+            - Path=/api/users/regist
+          filters:
+            - LogFilter
+            - LoginFilter
+
+        - id: user-server-logout
+          uri: http://${USER_SERVER}:9002
+          predicates:
+            - Path=/api/users/logout
+          filters:
+            - LogFilter
+            - LogoutFilter
+
+        - id: user-server-login
+          uri: http://${USER_SERVER}:9002
+          predicates:
+            - Path=/api/users/login
+          filters:
+            - LogFilter
+            - LoginFilter
+
+        - id: user-server-users
+          uri: http://${USER_SERVER}:9002
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - LogFilter
+        #            - JwtTokenFilter
+
+        - id: user-server-mz
+          uri: http://${USER_SERVER}:9002
+          predicates:
+            - Path=/api/mz/**
+          filters:
+            - LogFilter
+        #            - JwtTokenFilter
+
+        - id: user-server-friends
+          uri: http://${USER_SERVER}:9002
+          predicates:
+            - Path=/api/friends/**
+          filters:
+            - LogFilter
+        #            - JwtTokenFilter
+
+        - id: user-server-feedback
+          uri: http://${USER_SERVER}:9002
+          predicates:
+            - Path=/api/feedbacks/**
+          filters:
+            - LogFilter
+        #            - JwtTokenFilter
+
+        ####################  Chat Server ####################
+        - id: chat-server-chats
+          uri: http://${CHAT_SERVER}:9003
+          predicates:
+            - Path=/api/chats/**
+          filters:
+            - LogFilter
+        #            - JwtTokenFilter
+
+        - id: chat-server-ws
+          uri: http://${CHAT_SERVER}:9003
+          predicates:
+            - Path=/api/ws/**
+          filters:
+            - LogFilter
+        #            - JwtTokenFilter
+
+        - id: chat-server-recruits
+          uri: http://${CHAT_SERVER}:9003
+          predicates:
+            - Path=/api/recruits/**
+          filters:
+            - LogFilter
+        #            - JwtTokenFilter
+
+        ####################  Statistics Server ####################
+        - id: statistics-server
+          uri: http://${STATISTICS_SERVER}:9004
+          predicates:
+            - Path=/api/statistics/**
+          filters:
+            - LogFilter
+        #            - JwtTokenFilter
+
+        ####################  BigData Server ####################
+        - id: bigdata-server-recommend
+          uri: http://${BIGDATA_SERVER}:9005
+          predicates:
+            - Path=/api/recommends/**
+          filters:
+            - LogFilter
+        #            - JwtTokenFilter
+
+        ####################  Alarm Server ####################
+        - id: alarm-server-clients
+          uri: http://${ALARM_SERVER}:9007
+          predicates:
+            - Path=/api/alarm/**
+          filters:
+            - LogFilter
+
+        ####################  Swagger Server ####################
+        - id: user-server-swagger
+          uri: http://${USER_SERVER}:9002
+          predicates:
+            - Path=/api/user/swagger.json
+          filters:
+            - LogFilter
+
+        - id: chat-server-swagger
+          uri: http://${CHAT_SERVER}:9003
+          predicates:
+            - Path=/api/chats/swagger.json
+          filters:
+            - LogFilter
+
+        - id: statistics-server-swagger
+          uri: http://${STATISTICS_SERVER}:9004
+          predicates:
+            - Path=/api/statistics/swagger.json
+          filters:
+            - LogFilter
+
+        - id: alarm-server-swagger
+          uri: http://${ALARM_SERVER}:9007
+          predicates:
+            - Path=/api/alarm/swagger.json
+          filters:
+            - LogFilter
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  period:
+    access-token: 86400000 # 1일
+    refresh-token: 2419200000 #4주
+
+cookie:
+  period:
+    access-token: 86400
+    refresh-token: 2419200
+
+url:
+  domain: ${DOMAIN_URL}

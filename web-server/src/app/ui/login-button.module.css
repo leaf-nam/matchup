@@ -1,0 +1,26 @@
+.kakaoButton {
+    width: 350px;
+    height: 80px;
+    background-size: cover;
+    border-radius: 12px;
+    background-image: url('kakao_login.png');
+    margin-bottom: 5px;
+}
+
+.naverButton {
+    width: 350px;
+    height: 80px;
+    background-size: cover;
+    border-radius: 12px;
+    margin-bottom: 5px;
+    background-image: url('naver_login2.png');
+}
+
+.googleButton {
+    width: 350px;
+    height: 80px;
+    background-size: cover;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    background-image: url('google_login.png');
+}

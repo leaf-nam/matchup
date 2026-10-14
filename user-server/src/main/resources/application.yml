@@ -1,0 +1,80 @@
+server:
+  port: 9002
+
+spring:
+  servlet:
+    multipart:
+      file-size-threshold: 1MB
+      location: C:/Temp
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+  config:
+    import:
+      - optional:file:.env[.properties]
+      - optional:file:/config/application.properties
+  profiles:
+    include: oauth2, swagger
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      format_sql: true
+      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+      hibernate:
+        default_batch_fetch_size: 1000
+  kafka:
+    producer:
+      bootstrap-servers: ${KAFKA_SERVER}:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+logging:
+  level:
+#    org.hibernate.SQL: debug
+#    logging.level.reactor.netty.http.client: debug
+    root: info
+
+ip:
+  db:
+    user: ${MATCHUP_USER_DB}
+  db-repl:
+    user: ${MATCHUP_USER_DB_REPL}
+
+  server:
+    user: ${USER_SERVER}
+    auth: ${AUTH_SERVER}
+    web: ${WEB_SERVER}
+    statistics: ${STATISTICS_SERVER}
+
+id:
+  db: ${DB_ID}
+  db-repl: ${DB_REPL_ID}
+
+password:
+  db: ${DB_PASSWORD}
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+
+cookie:
+  period:
+    access-token: 86400 # 1일
+    refresh-token: 2419200 #4주
+
+riot:
+  api-key: ${RIOT_API_KEY}
+
+ddragon:
+  version: ${DDRAGON_VERSION}
+
+url:
+  domain: ${DOMAIN_URL}
+
+
+dialect: org.hibernate.dialect.MySQLDialect
+default_batch_fetch_size: 1000

@@ -1,0 +1,27 @@
+server:
+  port: 9003
+
+logging:
+  level:
+    com.ssafy: DEBUG
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${MATCHUP_CHAT_DB}:3310
+      database: matchup
+  kafka:
+    #    bootstrap-servers: kafka-service:9092
+    bootstrap-servers: ${KAFKA_SERVER}:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  config:
+    import:
+      - optional:file:.env[.properties]
+      - optional:file:/config/application.properties
+  profiles:
+    include: swagger
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}

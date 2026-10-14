@@ -1,0 +1,31 @@
+/* comment.module.css */
+.comment {
+  /* margin-bottom: 20px; */
+  padding: 20px 0 20px 20px;
+}
+
+.commentContent {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.commentWriter {
+  font-size: 14px;
+  color: #666;
+}
+
+.commentCreatedAt {
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+}
+
+.childrenComments {
+  margin-top: 10px;
+  padding-left: 20px;
+  border-left: 1px solid #ccc;
+}
+
+.hide {
+  display: none;
+}

@@ -1,0 +1,30 @@
+.nav {
+    background-color: #161A1E;
+    box-shadow: 0 0 0.75px 0.45px #4bccc5;
+    z-index: 1004;
+    justify-content: center;
+    font-size : 4rem;
+}
+
+.active {
+    color: #1DEBEC;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    background-color: #1DEBEC;
+    width: 100px;
+    height: 40px;
+    margin-left: 10px;
+    border-radius: 15px;
+    padding: auto;
+    color: #09161f;
+}
+
+.input {
+    width: 250px;
+}
